@@ -13,42 +13,34 @@ import { Close } from '@/components/icons/close';
 import { Unlocked } from '@/components/icons/unlocked';
 import { OvenIcon } from '@/components/icons/oven';
 import { Sun } from '@/components/icons/sun';
+import { ExportIcon } from '@/components/icons/export-icon';
+import { OptionIcon } from '@/components/icons/option';
 
 const menuItems = [
   {
-    name: 'Getting Started',
+    name: 'Home',
     icon: <HomeIcon />,
     href: routes.gettingStarted,
   },
   {
-    name: 'Sign',
-    icon: <ExchangeIcon />,
-    href: routes.sign,
-  },
-  {
-    name: 'Decrypt',
-    icon: <Unlocked />,
-    href: routes.decrypt,
-  },
-  {
-    name: 'Records',
+    name: 'Projects',
     icon: <FarmIcon />,
-    href: routes.records,
+    href: routes.projects,
   },
   {
-    name: 'Transfer',
-    icon: <ChevronForward />,
-    href: routes.transfer,
+    name: 'Create New Project',
+    icon: <ExportIcon />,
+    href: routes.createProject,
   },
   {
-    name: 'Execute',
-    icon: <OvenIcon />,
-    href: routes.execute,
+    name: 'My Projects',
+    icon: <OptionIcon />,
+    href: routes.myProjects,
   },
   {
-    name: 'Deploy',
-    icon: <Sun />,
-    href: routes.deploy,
+    name: 'Transactions History',
+    icon: <ExchangeIcon />,
+    href: routes.transactions,
   },
 ];
 
@@ -61,10 +53,12 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 bg-body ltr:left-0 ltr:border-r rtl:right-0 rtl:border-l dark:border-gray-700 dark:bg-dark xs:w-80 xl:fixed  xl:w-72 2xl:w-80',
+        'top-0 z-40 h-full w-full max-w-full bg-body font-bold ltr:left-0  rtl:right-0 rtl:border-l dark:border-gray-700 dark:bg-dark xs:w-80 xl:fixed  xl:w-72 2xl:w-80',
         className
       )}
     >
+      {' '}
+      {/* border-dashed border-gray-200 ltr:border-r */}
       <div className="relative flex flex-col items-center justify-between px-6 py-4 2xl:px-8">
         <Logo />
         <div className="md:hidden">
@@ -80,7 +74,6 @@ export default function Sidebar({ className }: SidebarProps) {
           </Button>
         </div>
       </div>
-
       <Scrollbar style={{ height: 'calc(100% - 96px)' }}>
         <div className="px-6 pb-5 2xl:px-8">
           <div className="mt-2">

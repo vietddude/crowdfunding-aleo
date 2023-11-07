@@ -124,3 +124,10 @@ Styles for Swiper slider
 .product-share .react-share__ShareButton {
   @apply flex flex-col items-center justify-center;
 }
+
+.home-panel {
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+  background-position: left top;
+  background-image: url('../../../public/bg.png');
+}

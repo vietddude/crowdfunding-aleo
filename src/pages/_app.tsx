@@ -18,6 +18,7 @@ import { LeoWalletAdapter } from '@demox-labs/aleo-wallet-adapter-leo';
 import { DecryptPermission } from '@demox-labs/aleo-wallet-adapter-base';
 import { WalletProvider } from '@demox-labs/aleo-wallet-adapter-react';
 import { WalletModalProvider } from '@demox-labs/aleo-wallet-adapter-reactui';
+import { ToastContainer } from 'react-toastify';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -43,7 +44,9 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
           name="viewport"
           content="width=device-width, initial-scale=1 maximum-scale=1"
         />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ToastContainer />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <WalletProvider
@@ -55,16 +58,18 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
               <ThemeProvider
                 attribute="class"
                 enableSystem={false}
-                defaultTheme="dark"
+                defaultTheme="light"
               >
                 {getLayout(<Component {...pageProps} />)}
+                <SettingsButton />
+                <SettingsDrawer />
                 <ModalsContainer />
                 <DrawersContainer />
               </ThemeProvider>
             </WalletModalProvider>
           </WalletProvider>
         </Hydrate>
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
       </QueryClientProvider>
     </>
   );

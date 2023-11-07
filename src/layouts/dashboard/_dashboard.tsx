@@ -7,13 +7,14 @@ import { useDrawer } from '@/components/drawer-views/context';
 import Sidebar from '@/layouts/dashboard/_sidebar';
 import React, { FC, useMemo } from 'react';
 import { WalletMultiButton } from '@demox-labs/aleo-wallet-adapter-reactui';
+import { ToastContainer } from 'react-toastify';
 
 require('@demox-labs/aleo-wallet-adapter-reactui/dist/styles.css');
 
 function HeaderRightArea() {
   return (
     <div className="relative order-last flex shrink-0 items-center gap-3 sm:gap-6 lg:gap-8">
-      <WalletMultiButton className="bg-[#1253fa]" />
+      <WalletMultiButton style={{ backgroundColor: '#009E5F' }} />
     </div>
   );
 }
@@ -28,7 +29,7 @@ export function Header() {
     <nav
       className={`fixed top-0 z-30 w-full transition-all duration-300 ltr:right-0 rtl:left-0 ltr:xl:pl-72 rtl:xl:pr-72 ltr:2xl:pl-80 rtl:2xl:pr-80 ${
         isMounted && windowScroll.y > 10
-          ? 'h-16 bg-gradient-to-b from-white to-white/80 shadow-card backdrop-blur dark:from-dark dark:to-dark/80 sm:h-20'
+          ? 'h-16 bg-gradient-to-b from-inherit to-white/100 dark:from-inherit dark:to-dark/100 sm:h-20'
           : 'h-16 sm:h-24'
       }`}
     >
