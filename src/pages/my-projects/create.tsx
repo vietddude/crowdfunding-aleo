@@ -16,6 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { LeoWalletAdapter } from '@demox-labs/aleo-wallet-adapter-leo';
 
+const contractName = process.env.NEXT_PUBLIC_CONTRACT_NAME || "project_crowdfunding7.aleo";
+
 function toProjectId(title: string): string {
   return title.replaceAll(' ', '-').toLowerCase();
 }
@@ -137,7 +139,7 @@ const Create: NextPageWithLayout = () => {
         const aleoTransaction = Transaction.createTransaction(
           publicKey,
           WalletAdapterNetwork.Testnet,
-          'project_crowdfunding8.aleo',
+          contractName,
           'create_project',
           [`${result?.data?.data?.project_hash}field`, `${result?.data?.data?.pool}field`],
           // [`604379448672405679515024718454075807707field`, `5000field`],

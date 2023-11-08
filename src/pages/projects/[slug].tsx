@@ -19,6 +19,8 @@ import Button from '@/components/ui/button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const contractName = process.env.NEXT_PUBLIC_CONTRACT_NAME || "project_crowfunding7.aleo"
+
 function renderActionButtons(
   publicKey: string,
   project: Project,
@@ -97,7 +99,7 @@ const ProjectPage: NextPageWithLayout = () => {
       const aleoTransaction = Transaction.createTransaction(
         publicKey || '',
         WalletAdapterNetwork.Testnet,
-        'project_crowdfunding8.aleo',
+        contractName,
         'deposit_project',
         [
           `${project?.project_hash}field`,
