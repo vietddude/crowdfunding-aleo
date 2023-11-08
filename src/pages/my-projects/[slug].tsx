@@ -94,7 +94,7 @@ const ProjectPage: NextPageWithLayout = () => {
               <img
                 src={String(project.img) || String(nft)}
                 alt={project.title}
-                className="rounded border border-gray-300 object-cover"
+                className="rounded border-green-800 border-2 object-cover shadow-lg"
               />
             </div>
           </div>

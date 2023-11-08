@@ -131,27 +131,28 @@ const Create: NextPageWithLayout = () => {
 
       // Check if the API call was successful
       if (result && result.status === 200) {
+        // if (true) {
         // Show a success toast message
+        // console.log(result?.data?.data?.project_hash, result?.data?.data?.pool);
         const aleoTransaction = Transaction.createTransaction(
           publicKey,
           WalletAdapterNetwork.Testnet,
-          'project_crowdfunding3.aleo',
+          'project_crowdfunding8.aleo',
           'create_project',
-          [
-            `{"project_id":"${result.data.project_hash}field","pool": "${formData.pool}u128", "address_owner": "${publicKey}"}`,
-          ],
-          35000
+          [`${result?.data?.data?.project_hash}field`, `${result?.data?.data?.pool}field`],
+          // [`604379448672405679515024718454075807707field`, `5000field`],
+          350000
         );
 
         const txId =
           (await (wallet?.adapter as LeoWalletAdapter).requestTransaction(
             aleoTransaction
           )) || '';
-        console.log(transactionId);
         setTransactionId(txId);
+        console.log(transactionId);
         toast.success('Project added successfully');
         // Optionally, you can redirect to a success page.
-        router.push(`/my-projects/${formData.project_id}`);
+        router.push(`/my-projects/${result?.data?.data?.project_id}`);
       } else {
         // Show an error toast message
         toast.error('Failed to add the project. Please try again.');

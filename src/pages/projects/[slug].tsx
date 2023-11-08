@@ -19,6 +19,53 @@ import Button from '@/components/ui/button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+function renderActionButtons(
+  publicKey: string,
+  project: Project,
+  openPopup: any
+) {
+  if (!publicKey) {
+    return (
+      <Button
+        className="mt-8 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
+        disabled
+      >
+        {'Connect to Wallet'}
+      </Button>
+    );
+  }
+
+  if (publicKey === project.address_owner) {
+    return <p>You own this project</p>;
+  }
+
+  if (project?.raised <= project?.pool) {
+    if (project.status === 'Ongoing') {
+      return (
+        <Button
+          className="mt-8 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
+          onClick={openPopup}
+        >
+          {'Donate'}
+        </Button>
+      );
+    } else if (project.status === 'Finished') {
+      return <p>Project ended</p>;
+    } else if (project.status === 'Upcoming') {
+      return <p>Not started yet</p>;
+    }
+  }
+
+  return (
+    <Button
+      className="mt-8 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
+      disabled
+    >
+      {'Connect to Wallet'}
+    </Button>
+  );
+}
+
 const ProjectPage: NextPageWithLayout = () => {
   const router = useRouter();
   const { publicKey, wallet } = useWallet();
@@ -50,10 +97,14 @@ const ProjectPage: NextPageWithLayout = () => {
       const aleoTransaction = Transaction.createTransaction(
         publicKey || '',
         WalletAdapterNetwork.Testnet,
-        'project_crowdfunding3.aleo',
+        'project_crowdfunding8.aleo',
         'deposit_project',
-        [`${project?.project_hash}field`, `${amount}u128`],
-        35000
+        [
+          `${project?.project_hash}field`,
+          `${project?.address_owner}`,
+          `${amount}field`,
+        ],
+        350000
       );
 
       const txId =
@@ -158,29 +209,8 @@ const ProjectPage: NextPageWithLayout = () => {
                 completed={caclPercent(project.raised, project.pool)}
               ></ProgressBar>
               <div className="flex justify-center">
-                {publicKey && (
-                  <div className="flex justify-center">
-                    {publicKey === project.address_owner ? (
-                      <p>You own this project</p>
-                    ) : project?.raised < project?.pool &&
-                      project?.status === 'Ongoing' ? (
-                      <Button
-                        className="mt-8 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
-                        onClick={openPopup}
-                      >
-                        {'Invest in Project'}
-                      </Button>
-                    ) : (
-                      <Button
-                        className="mt-8 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
-                        disabled
-                      >
-                        {'Connect to Wallet'}
-                      </Button>
-                    )}
-                  </div>
-                )}
-
+                {publicKey &&
+                  renderActionButtons(publicKey, project, openPopup)}
                 <Popup
                   open={isPopupOpen}
                   closeOnDocumentClick
@@ -212,7 +242,7 @@ const ProjectPage: NextPageWithLayout = () => {
               <img
                 src={String(project.img) || String(nft)}
                 alt={project.title}
-                className="rounded border border-gray-300 object-cover"
+                className="rounded border-2 border-green-800 object-cover shadow-lg"
               />
             </div>
           </div>

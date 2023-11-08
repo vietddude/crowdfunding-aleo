@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const apiUrl = 'http://0.0.0.0:4000';
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL ||'http://0.0.0.0:4000';
 
 interface Project {
   project_id: string;
